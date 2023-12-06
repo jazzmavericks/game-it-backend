@@ -13,7 +13,7 @@ const User = SQLconnection.define("User",{
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     }
 })
 
