@@ -185,7 +185,7 @@ async function statusCompleted(req, res) {
 async function gameStatus(req,res) {
     try {
         const games = await Games.findAll({
-            where: { userID: req.body.email}
+            where: { userID: req.body.email }
         });
         res.status(201).json({
             message: "Game Status:", 
@@ -199,6 +199,77 @@ async function gameStatus(req,res) {
     }
 };
 
+//SHOW GAME STATUS - PLAYING
+async function showPlaying(req,res) {
+    try {
+        const games = await Games.findAll({
+            where: { userID: req.body.email, playing: true }
+        });
+        res.status(201).json({
+            message: "Game Status: Playing", 
+            details: games
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to list game status", 
+            errorMessage:error.message})
+        console.log(error);
+    }
+};
+
+//SHOW GAME STATUS - OWNED
+async function showOwned(req,res) {
+    try {
+        const games = await Games.findAll({
+            where: { userID: req.body.email, owned: true }
+        });
+        res.status(201).json({
+            message: "Game Status: Owned", 
+            details: games
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to list game status", 
+            errorMessage:error.message})
+        console.log(error);
+    }
+};
+
+//SHOW GAME STATUS - WANT
+async function showWant(req,res) {
+    try {
+        const games = await Games.findAll({
+            where: { userID: req.body.email, want: true }
+        });
+        res.status(201).json({
+            message: "Game Status: Want", 
+            details: games
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to list game status", 
+            errorMessage:error.message})
+        console.log(error);
+    }
+};
+
+//SHOW GAME STATUS - COMPLETED
+async function showCompleted(req,res) {
+    try {
+        const games = await Games.findAll({
+            where: { userID: req.body.email, completed: true }
+        });
+        res.status(201).json({
+            message: "Game Status: Completed", 
+            details: games
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Unable to list game status", 
+            errorMessage:error.message})
+        console.log(error);
+    }
+};
 
 //DELETE GAME
 async function deleteGame(req, res) {
@@ -224,5 +295,9 @@ module.exports = {
     statusWant,
     statusCompleted,
     gameStatus,
+    showPlaying,
+    showOwned,
+    showWant,
+    showCompleted,
     deleteGame
 };
