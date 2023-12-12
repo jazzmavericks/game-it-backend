@@ -28,13 +28,13 @@ gamesRouter.put("/statusCompleted", statusCompleted);
 //GET GAME STATUS - ALL
 gamesRouter.get("/gameStatus", gameStatus);
 //SHOW GAME STATUS - PLAYING
-gamesRouter.get("/showPlaying", showPlaying);
+gamesRouter.patch("/showPlaying", showPlaying);
 //SHOW GAME STATUS - OWNED
-gamesRouter.get("/showOwned", showOwned);
+gamesRouter.patch("/showOwned", showOwned);
 //SHOW GAME STATUS - WANT
-gamesRouter.get("/showWant", showWant);
+gamesRouter.patch("/showWant", showWant);
 //SHOW GAME STATUS - COMPLETED
-gamesRouter.get("/showCompleted", showCompleted);
+gamesRouter.patch("/showCompleted", showCompleted);
 
 //DELETE GAME
 gamesRouter.delete("/deleteGame", deleteGame);
