@@ -274,19 +274,39 @@ async function showCompleted(req,res) {
 //DELETE GAME
 async function deleteGame(req, res) {
     try {
-        const del = await Games.destroy({ 
-            where: { userID: req.body.email }
+        const { email, gameID } = req.body;
+
+        // Validate that email and gameID are present in the request body
+        if (!email || !gameID) {
+            return res.status(400).json({ message: 'Email and non-empty gameID are required in the request body' });
+        }
+
+        const game = await Games.findOne({
+            where: { userID: email, gameID: gameID }
         });
+
+        console.log('Found game:', game);
+
+        if (!game) {
+            console.log('Game not found!');
+            return res.status(404).json({ message: 'Game not found' });
+        }
+
+        await game.destroy();
+
         res.status(200).json({
-            message: "game deleted",
+            message: 'Game deleted successfully',
         });
+
     } catch (error) {
-        res.status(501).json({ 
-            message: error.message, 
-            error: error
-        })
+        console.error(error);
+        res.status(500).json({
+            message: 'Unable to remove game',
+            errorMessage: error.message,
+        });
     }
 }
+
 
 module.exports = { 
     addGameToUser,
